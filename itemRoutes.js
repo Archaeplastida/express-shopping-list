@@ -17,7 +17,7 @@ router.get("/:name", (req, res, next) => {
     try {
         const theItem = checkExistence(shoppingList, req.params.name)[0];
         if (theItem) return res.json(theItem);
-        throw new ExpressError(req.params.name + " does not exist.", 404);
+        throw new ExpressError(`"${req.params.name}" does not exist.`, 404);
     }
     catch (err) {
         return next(err);
@@ -49,7 +49,7 @@ router.patch("/:name", (req, res, next) => {
             }
             throw new ExpressError("Missing or incorrect parameter(s)!", 406);
         }
-        throw new ExpressError(req.params.name + " does not exist, or you may have not put a 'name' parameter!", 404);
+        throw new ExpressError(`"${req.params.name}" does not exist, or you may have not put a 'name' parameter!`, 404);
     }
     catch (err) {
         return next(err);
@@ -63,7 +63,8 @@ router.delete("/:name", (req, res, next) => {
             shoppingList.splice(itemToDelete, 1);
             res.status(201).json({ message: "Deleted" });
         }
-        throw new ExpressError(req.params.name + " does not exist.", 404);
+        throw new ExpressError(`"${req.params.name}" does not exist.`, 404);
+
     }
     catch (err) {
         return next(err);
